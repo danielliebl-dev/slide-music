@@ -1,1 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerenciador de Músicas e Slides - Missa / Culto</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-layout">
+    <!-- BARRA LATERAL (LISTA DE MÚSICAS DA MISSA) -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h2>Repertório da Missa</h2>
+        <p>Cadastre e ordene as músicas da celebração.</p>
+      </div>
 
+      <div class="song-form">
+        <input type="text" id="songTitleInput" placeholder="Ex: Entrada - Vem, A Casa é Sua" />
+        <textarea id="songLyricsInput" placeholder="Cole a letra desta música aqui..."></textarea>
+        
+        <div class="form-options">
+          <label for="versesPerSlide">Versos por slide:</label>
+          <select id="versesPerSlide">
+            <option value="2">2 Versos</option>
+            <option value="3">3 Versos</option>
+            <option value="4" selected>4 Versos</option>
+            <option value="5">5 Versos</option>
+            <option value="6">6 Versos</option>
+          </select>
+        </div>
+
+        <button id="addSongBtn" class="btn primary">+ Adicionar ao Repertório</button>
+      </div>
+
+      <!-- LISTA DE MÚSICAS CADASTRADAS -->
+      <div class="playlist-section">
+        <h3>Lista de Músicas (<span id="songCount">0</span>)</h3>
+        <ul id="playlist" class="playlist"></ul>
+      </div>
+
+      <div class="global-actions">
+        <button id="startPresentationBtn" class="btn accent" disabled>📺 Iniciar Apresentação Global</button>
+        <button id="clearAllBtn" class="btn danger" disabled>Limpar Tudo</button>
+      </div>
+    </aside>
+
+    <!-- ÁREA PRINCIPAL (VISUALIZAÇÃO DOS SLIDES DA MÚSICA SELECIONADA) -->
+    <main class="main-content">
+      <header class="main-header">
+        <h1 id="selectedSongTitle">Selecione ou adicione uma música</h1>
+        <p id="selectedSongSubtitle">Os slides gerados aparecerão abaixo para conferência.</p>
+      </header>
+
+      <div id="slidesOutput" class="slides-container">
+        <div class="empty-state">
+          <span>🎵</span>
+          <p>Nenhuma música selecionada. Adicione músicas no painel lateral à esquerda para começar a montar o repertório da missa.</p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- MODAL DE APRESENTAÇÃO EM TELA CHEIA -->
+  <div id="presentationModal" class="presentation-modal hidden">
+    <div class="presentation-header">
+      <div class="song-indicator">
+        <span id="currentSongBadge" class="badge">Música 1 de 1</span>
+        <span id="currentSongTitle" class="song-title-display">Título da Música</span>
+      </div>
+      
+      <div class="presentation-controls-top">
+        <span class="hint-key">Setas ⬅️ ➡️ (Slides) | ⬆️ ⬇️ (Músicas) | Esc (Sair)</span>
+        <button id="closePresentBtn" class="close-btn">&times; Sair</button>
+      </div>
+    </div>
+
+    <div class="presentation-body">
+      <div id="presentationText" class="presentation-text"></div>
+    </div>
+
+    <div class="presentation-footer">
+      <button id="prevSlideBtn" class="nav-btn">◀ Slide Anterior</button>
+      <span id="slideCounter" class="slide-counter">Slide 1 / 1</span>
+      <button id="nextSlideBtn" class="nav-btn">Próximo Slide ▶</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
